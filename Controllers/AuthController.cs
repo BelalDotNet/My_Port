@@ -10,38 +10,8 @@ using System.Text;
 
 namespace My_Port.Controllers
 {
-    // [Authorize]
     public class AuthController(ApplicationDBContext _context) : Controller
     {
-        //public IActionResult Login()
-        //{
-        //    return View();
-        //}
-        //public IActionResult Register()
-        //{
-        //    return View();
-        //}
-
-        //public async Task<IActionResult> CreateUser(UserDto dto)
-        //{
-
-        //    var existingUser = await _context.Users.FirstOrDefaultAsync(x => x.Email == dto.Email);
-        //    if (existingUser == null)
-        //    {
-        //        var user = new User
-        //        {
-        //            Email = dto.Email,
-        //            Password = dto.Password,
-        //            UserName = dto.UserName
-        //        };
-        //        _context.Users.Add(user);
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    //else { }
-
-        //    return RedirectToAction("Login");
-        //}
-
         public IActionResult Login()
         {
             return View();
@@ -96,7 +66,7 @@ namespace My_Port.Controllers
 
         }
 
-        public IActionResult LoginUser(UserDto dto)
+        public async Task<IActionResult> LoginUser(UserDto dto)
         {
             if (dto == null)
             {
@@ -109,7 +79,7 @@ namespace My_Port.Controllers
                 return View("Login");
             }
 
-            var isExist = _context.Users.FirstOrDefaultAsync(x => x.Email == dto.Email);
+            var isExist = await _context.Users.FirstOrDefaultAsync(x => x.Email == dto.Email);
 
             if (isExist == null)
             {
@@ -117,7 +87,7 @@ namespace My_Port.Controllers
                 return View("Login");
             }
 
-            if (isExist.Result.Password != dto.Password)
+            if (isExist.Password != dto.Password)
             {
                 ViewBag.Message = "Incorrect password.";
                 return View("Login");
