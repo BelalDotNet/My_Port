@@ -111,7 +111,6 @@ namespace My_Port.Controllers
         {
             var tokenHandler = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes("d2f1d58034bf9137e6e399385843aa23d7fa70970794d0db4f09ff19d249ae5b4b890341");
-
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]

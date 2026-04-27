@@ -1,0 +1,23 @@
+﻿@using My_Port.Dto
+@model RoleDto
+<div>@ViewBag.Message</div>
+
+<form class="container d-flex justify-content-center align-items-center vh-100" asp-action="AddRole">
+    <div class="card p-4 shadow" style="width: 400px;">
+        <h3 class="text-center mb-4">Add Role</h3>
+
+        <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-control" placeholder="Enter role name" name="RoleName" asp-for="RoleName">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <input type="text" class="form-control" placeholder="Enter role description" name="RoleDescription" asp-for="RoleDescription">
+                </div>
+             
+                        <div class="d-grid">
+                            <button class="btn btn-success">Submit</button>
+                        </div>
+                    </div>
+                </form>

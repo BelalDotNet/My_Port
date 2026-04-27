@@ -1,0 +1,51 @@
+﻿@using My_Port.Dto
+@model List<RoleDto>;
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <a class="btn btn-success" asp-action="RedirectToRoleForm">+ Add Roles</a>
+        <h3 class="m-0">Employee Role</h3>
+    </div>
+
+    <div class="card shadow p-3">
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>SL</th>
+                    <th>Role Name</th>
+                    <th>Role Designation</th>
+                    <th style="width: 150px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    if (Model != null && Model.Count > 0)
+                    {
+                        int sl = 1;
+
+                        foreach (var role in Model)
+                        {
+                            <tr>
+                                <td>@(sl++)</td>
+                                <td>@role.RoleName</td>
+                                <td>@role.RoleDescription</td>
+                                <td>
+                                    <a class="btn btn-sm btn-primary" asp-action="UpdateRole" asp-route-id="@role.RoleId">Edit</a>
+                                    <a class="btn btn-sm btn-danger" asp-action="DeleteRole" asp-route-id="@role.RoleId">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center">No Roles found.</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
