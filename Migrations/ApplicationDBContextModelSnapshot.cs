@@ -79,6 +79,47 @@ namespace My_Port.Migrations
 
                     b.ToTable("Users");
                 });
+
+            modelBuilder.Entity("My_Port.Models.UserRole", b =>
+                {
+                    b.Property<int>("UserRoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserRoleId"));
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserRoleId");
+
+                    b.ToTable("UserRoles");
+                });
+
+            modelBuilder.Entity("My_Port.Models.ad_Role", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"));
+
+                    b.Property<string>("RoleDescription")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("RoleId");
+
+                    b.ToTable("Roles");
+                });
 #pragma warning restore 612, 618
         }
     }

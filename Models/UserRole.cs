@@ -6,7 +6,7 @@ namespace My_Port.Models
     {
         [Key]
         public int UserRoleId { get; set; }
-        public required string UserId { get; set; }
-        public required string RoleId { get; set; }
+        public required int UserId { get; set; }
+        public required int RoleId { get; set; }
     }
 }
