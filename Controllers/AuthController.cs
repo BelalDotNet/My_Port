@@ -12,6 +12,8 @@ namespace My_Port.Controllers
 {
     public class AuthController(ApplicationDBContext _context) : Controller
     {
+        public string UserRole=string.Empty;
+
         public IActionResult Login()
         {
             return View();
@@ -68,6 +70,25 @@ namespace My_Port.Controllers
 
         public async Task<IActionResult> LoginUser(UserDto dto)
         {
+
+           var data = await (
+                from u in _context.Users
+                join ur in _context.UserRoles on u.UserId equals ur.UserId
+                join r in _context.Roles on ur.RoleId equals r.RoleId
+                where u.Email.Contains(dto.Email)  
+         
+                select new UserDto
+                {
+                    UserId = u.UserId,
+                    UserName = u.UserName,
+                    Email = u.Email,
+                    Password = u.Password,
+                    UserRole = r.RoleName
+                }
+            ).ToListAsync();
+
+            UserRole = data[0].UserRole;
+
             if (dto == null)
             {
                 ViewBag.Message = "Please provide email and password.";
@@ -116,7 +137,7 @@ namespace My_Port.Controllers
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.Name, dto.Email),
-                    new Claim(ClaimTypes.Role,"Admin")
+                    new Claim(ClaimTypes.Role, UserRole)
                 }),
                 Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
