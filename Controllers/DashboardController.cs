@@ -36,7 +36,7 @@ namespace My_Port.Controllers
             return RedirectToAction("AddEmployee");
         }
 
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
         public async Task<IActionResult> AddEmployeeDetail(EmployeeDto dto)
         {
             if (dto == null)

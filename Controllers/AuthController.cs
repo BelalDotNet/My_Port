@@ -71,21 +71,21 @@ namespace My_Port.Controllers
         public async Task<IActionResult> LoginUser(UserDto dto)
         {
 
-           var data = await (
-                from u in _context.Users
-                join ur in _context.UserRoles on u.UserId equals ur.UserId
-                join r in _context.Roles on ur.RoleId equals r.RoleId
-                where u.Email.Contains(dto.Email)  
-         
-                select new UserDto
-                {
-                    UserId = u.UserId,
-                    UserName = u.UserName,
-                    Email = u.Email,
-                    Password = u.Password,
-                    UserRole = r.RoleName
-                }
-            ).ToListAsync();
+            var data = await (
+                 from u in _context.Users
+                 join ur in _context.UserRoles on u.UserId equals ur.UserId
+                 join r in _context.Roles on ur.RoleId equals r.RoleId
+                 where u.Email.Contains(dto.Email)
+
+                 select new UserDto
+                 {
+                     UserId = u.UserId,
+                     UserName = u.UserName,
+                     Email = u.Email,
+                     Password = u.Password,
+                     UserRole = r.RoleName
+                 }
+             ).ToListAsync();
 
             UserRole = data[0].UserRole;
 

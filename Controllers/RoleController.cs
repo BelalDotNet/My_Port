@@ -89,9 +89,21 @@ namespace My_Port.Controllers
             {
                 data.RoleName = dto.RoleName;
                 data.RoleDescription = dto.RoleDescription;
+                _context.Roles.Update(data);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+        }
+
+        public async Task<IActionResult> DeleteRole(int id)
+        {
+            var data = await _context.Roles.FirstOrDefaultAsync(x => x.RoleId == id);
+            if (data != null)
+            {
+                _context.Roles.Remove(data);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Index");
         }
     }
 }
