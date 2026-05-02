@@ -28,14 +28,14 @@ namespace My_Port.Controllers
         {
             if (dto == null || string.IsNullOrWhiteSpace(dto.RoleName))
             {
-                ViewBag.Message = "Please Fill All the Details in the form";
+                TempData["Error"]  = "Please Fill All the Details in the form";
                 return View("AddRole");
             }
 
             var isexist = _context.Roles.Any(e => e.RoleName == dto.RoleName);
             if (isexist)
             {
-                ViewBag.Message = "Role already exists";
+                TempData["Info"] = "Role already exists";
                 return View("AddRole");
             }
 
@@ -47,6 +47,7 @@ namespace My_Port.Controllers
 
             await _context.SaveChangesAsync();
 
+            TempData["Success"] = "Role created successfully!";
 
             return RedirectToAction("Index");
         }
@@ -64,7 +65,7 @@ namespace My_Port.Controllers
 
                 return View(new RoleDto
                 {
-                    RoleId = data.RoleId,
+                    RoleId = data!.RoleId,
                     RoleName = data.RoleName,
                     RoleDescription = data.RoleDescription
                 });
@@ -76,13 +77,13 @@ namespace My_Port.Controllers
         {
             if (dto == null || string.IsNullOrWhiteSpace(dto.RoleName))
             {
-                ViewBag.Message = "Please Fill All the Details in the form";
-                return View("UpdateRole", new { id = dto.RoleId });
+                TempData["Info"] = "Please Fill All the Details in the form";
+                return View("UpdateRole", new { id = dto!.RoleId });
             }
             var data = await _context.Roles.FirstOrDefaultAsync(x => x.RoleId == dto.RoleId);
             if (data == null)
             {
-                ViewBag.Message = "Role not found";
+                TempData["Error"] = "Role not found";
                 return View("UpdateRole", new { id = dto.RoleId });
             }
             else
@@ -91,6 +92,7 @@ namespace My_Port.Controllers
                 data.RoleDescription = dto.RoleDescription;
                 _context.Roles.Update(data);
                 await _context.SaveChangesAsync();
+                TempData["Success"] = "Role Updated successfully!";
                 return RedirectToAction("Index");
             }
         }
@@ -102,6 +104,8 @@ namespace My_Port.Controllers
             {
                 _context.Roles.Remove(data);
                 await _context.SaveChangesAsync();
+
+                TempData["Success"] = "Role Deleted successfully!";
             }
             return RedirectToAction("Index");
         }

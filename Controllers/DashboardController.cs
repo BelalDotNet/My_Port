@@ -55,10 +55,10 @@ namespace My_Port.Controllers
 
             _context.Employees.Add(new Employee
             {
-                EmployeeName = dto.EmployeeName,
+                EmployeeName = dto.EmployeeName!,
                 Department = dto.Department,
                 Email = dto.Email,
-                Designation = dto.Designation
+                Designation = dto.Designation!
             });
 
             await _context.SaveChangesAsync();
@@ -69,7 +69,7 @@ namespace My_Port.Controllers
         public async Task<IActionResult> DeleteEmployee(int id)
         {
             var data = await _context.Employees.FirstOrDefaultAsync(x => x.Id == id);
-            _context.Employees.Remove(data);
+            _context.Employees.Remove(data!);
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index");
@@ -82,7 +82,7 @@ namespace My_Port.Controllers
 
             return View(new EmployeeDto
             {
-                Id = data.Id,
+                Id = data!.Id,
                 EmployeeName = data.EmployeeName,
                 Department = data.Department,
                 Email = data.Email,
@@ -102,9 +102,9 @@ namespace My_Port.Controllers
 
             var data = await _context.Employees.FirstOrDefaultAsync(x => x.Email == dto.Email);
 
-            data.Email = dto.Email;
-            data.EmployeeName = dto.EmployeeName;
-            data.Designation = dto.Designation;
+            data!.Email = dto.Email;
+            data.EmployeeName = dto.EmployeeName!;
+            data.Designation = dto.Designation!;
             data.Department = dto.Department;
 
 

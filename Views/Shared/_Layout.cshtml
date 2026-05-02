@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/My_Port.styles.css" asp-append-version="true" />
+    <link href="~/lib/toastr/toastr.min.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -48,6 +49,7 @@
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
+           
         </main>
     </div>
     @if (User!.Identity!.IsAuthenticated)
@@ -62,5 +64,17 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <script src="~/lib/toastr/toastr.min.js"></script>
+
+    <script>
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "timeOut": "2000"
+            };
+    </script>
+    
+    <partial name="_NotificationPartial" />
 </body>
 </html>
