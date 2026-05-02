@@ -38,12 +38,12 @@ namespace My_Port.Controllers
         {
             if (dto == null)
             {
-                ViewBag.Message = "Please provide email and password.";
+                TempData["Info"] = "Please provide email and password.";
                 return View("Login");
             }
             if (dto.Email == null || dto.Password == null)
             {
-                ViewBag.Message = "Email and password are required.";
+                TempData["Info"] = "Email and password are required.";
                 return View("Login");
             }
 
@@ -51,7 +51,7 @@ namespace My_Port.Controllers
 
             if (data != null)
             {
-                ViewBag.Message = "Email already exists.";
+                TempData["Info"] = "Email already exists.";
                 return View("Registration");
             }
 
@@ -63,7 +63,7 @@ namespace My_Port.Controllers
             });
 
             await _context.SaveChangesAsync();
-
+            TempData["Success"] = "Registration successful! Please log in.";
             return RedirectToAction("Login");
 
         }
@@ -91,12 +91,12 @@ namespace My_Port.Controllers
 
             if (dto == null)
             {
-                ViewBag.Message = "Please provide email and password.";
+                TempData["Info"] = "Please provide email and password.";
                 return View("Login");
             }
             if (dto.Email == null || dto.Password == null)
             {
-                ViewBag.Message = "Email and password are required.";
+                TempData["Info"] = "Email and password are required.";
                 return View("Login");
             }
 
@@ -104,13 +104,13 @@ namespace My_Port.Controllers
 
             if (isExist == null)
             {
-                ViewBag.Message = "Email does not exist.";
+                TempData["Info"] = "Email does not exist.";
                 return View("Login");
             }
 
             if (isExist.Password != dto.Password)
             {
-                ViewBag.Message = "Incorrect password.";
+                TempData["Info"] = "Incorrect password.";
                 return View("Login");
             }
 
@@ -123,7 +123,8 @@ namespace My_Port.Controllers
                 SameSite = SameSiteMode.Strict,
                 Expires = DateTime.UtcNow.AddHours(1)
             });
-
+            
+            TempData["Success"] = "Login successful!";
             return RedirectToAction("Index", "Dashboard");
 
         }
