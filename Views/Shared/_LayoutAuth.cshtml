@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"]</title>
+
+    <link rel="stylesheet" href="~/lib/adminlte/plugins/fontawesome-free/css/all.min.css">
+        <link rel="stylesheet" href="~/lib/adminlte/dist/css/adminlte.min.css">
+        </head>
+        <body class="hold-transition login-page">
+
+            @RenderBody()
+
+            <script src="~/lib/adminlte/plugins/jquery/jquery.min.js"></script>
+            <script src="~/lib/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script src="~/lib/adminlte/dist/js/adminlte.min.js"></script>
+
+            @await RenderSectionAsync("Scripts", required: false)
+        </body>
+    </html>
