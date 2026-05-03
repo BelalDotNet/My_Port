@@ -24,7 +24,6 @@
     <Folder Include="Migrations\" />
     <Folder Include="wwwroot\lib\adminlte\dist\" />
     <Folder Include="wwwroot\lib\adminlte\plugins\" />
-    <Folder Include="wwwroot\lib\toastr\" />
   </ItemGroup>
 
 </Project>
