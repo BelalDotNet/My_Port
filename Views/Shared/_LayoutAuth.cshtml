@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="~/lib/adminlte/plugins/fontawesome-free/css/all.min.css">
         <link rel="stylesheet" href="~/lib/adminlte/dist/css/adminlte.min.css">
+            <link href="~/lib/adminlte/plugins/toastr/toastr.min.css" rel="stylesheet" />
         </head>
         <body class="hold-transition login-page">
 
@@ -15,7 +16,9 @@
             <script src="~/lib/adminlte/plugins/jquery/jquery.min.js"></script>
             <script src="~/lib/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
             <script src="~/lib/adminlte/dist/js/adminlte.min.js"></script>
+            <script src="~/lib/adminlte/plugins/toastr/toastr.min.js"></script>
 
             @await RenderSectionAsync("Scripts", required: false)
+            <partial name="_NotificationPartial" />
         </body>
     </html>

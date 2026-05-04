@@ -14,6 +14,23 @@ namespace My_Port.Controllers
     {
         public string UserRole=string.Empty;
 
+
+        public IActionResult Index()
+        {
+            var list = _context.Users.Select(x => new UserDto
+            {
+                UserName = x.UserName,
+                Email = x.Email
+            }).ToList();
+
+            // var list = _context.UserDtos
+            //.FromSqlRaw("EXEC sp_GetUsers")
+            //.ToList();
+
+
+            return View(list);
+        }
+
         public IActionResult Login()
         {
             return View();
@@ -36,15 +53,22 @@ namespace My_Port.Controllers
 
         public async Task<IActionResult> RegisterUser(UserDto dto)
         {
+            if (dto.Password != dto.ConfirmPassword)
+            {
+               
+                TempData["Error"] = "Retype Passwords do not match";
+                return View("Registration");
+            }
+
             if (dto == null)
             {
                 TempData["Info"] = "Please provide email and password.";
-                return View("Login");
+                return View("Registration");
             }
             if (dto.Email == null || dto.Password == null)
             {
                 TempData["Info"] = "Email and password are required.";
-                return View("Login");
+                return View("Registration");
             }
 
             var data = await _context.Users.FirstOrDefaultAsync(x => x.Email == dto.Email);
@@ -125,7 +149,7 @@ namespace My_Port.Controllers
             });
             
             TempData["Success"] = "Login successful!";
-            return RedirectToAction("Index", "Dashboard");
+            return RedirectToAction("Index", "Home");
 
         }
 

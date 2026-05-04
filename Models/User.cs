@@ -15,7 +15,9 @@ namespace My_Port.Models
         public required string Email { get; set; }
        
         [StringLength(20)]
-        public required string Password { get; set; } 
+        public required string Password { get; set; }
+
+     
 
     }
 }

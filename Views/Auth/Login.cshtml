@@ -7,8 +7,19 @@
 @model UserDto
 <div>@ViewBag.Message</div>
 
-            <form class="container d-flex justify-content-center align-items-center vh-100" asp-action="LoginUser">
-                <div class="card p-4 shadow" style="width: 350px;">
+
+<div class="login-box">
+    <div class="login-logo">
+        <a href=""><b>My</b>Portfolio</a>
+    </div>
+
+    <div class="card">
+        <div class="card-body login-card-body">
+            <p class="login-box-msg"><b>Login to start your new experience</b></p>
+            <form  asp-action="LoginUser">
+
+            @* <form class="container d-flex justify-content-center align-items-center vh-100" asp-action="LoginUser"> *@
+                @*              <div class="card p-4 shadow" style="width: 350px;">
                     <h3 class="text-center mb-4">Login</h3>
 
                     <div class="mb-3">
@@ -28,8 +39,51 @@
                             <label>New User? Register <a asp-action="LoginToRegister"> Here</a></label>
                         </div>
                 </div>
-
+ *@
    
-            </form>
+                <div class="input-group mb-3">
+                    <input type="email" class="form-control" placeholder="Email" name="Email" asp-for="Email">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" placeholder="Password" name="Password" asp-for="Password">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                   @*          <div class="col-6">
+                                <div class="icheck-primary">
+                                    <input type="checkbox" id="remember">
+                                    <label for="remember">
+                                        Remember Me
+                                    </label>
+                                </div>
+                            </div> *@
+                            <!-- /.col -->
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary btn-block">Login</button>
+                            </div>
+                            <!-- /.col -->
+                        </div>
 
+
+                    </form>
+
+            @*         <p class="mb-1">
+                        <a href="#">I forgot my password</a>
+                    </p> *@
+                    <p class="mt-3">
+                        <label>New User? Register <a asp-action="LoginToRegister"> Here</a></label>
+                    </p>
+                </div>
+                <!-- /.login-card-body -->
+            </div>
+        </div>
        
