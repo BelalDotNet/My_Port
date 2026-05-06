@@ -53,12 +53,7 @@ namespace My_Port.Controllers
 
         public async Task<IActionResult> RegisterUser(UserDto dto)
         {
-            if (dto.Password != dto.ConfirmPassword)
-            {
-               
-                TempData["Error"] = "Retype Passwords do not match";
-                return View("Registration");
-            }
+     
 
             if (dto == null)
             {

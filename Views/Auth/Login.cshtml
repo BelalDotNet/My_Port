@@ -8,7 +8,7 @@
 <div>@ViewBag.Message</div>
 
 
-<div class="login-box">
+@*  <div class="login-box">
     <div class="login-logo">
         <a href=""><b>My</b>Portfolio</a>
     </div>
@@ -17,8 +17,8 @@
         <div class="card-body login-card-body">
             <p class="login-box-msg"><b>Login to start your new experience</b></p>
             <form  asp-action="LoginUser">
-
-            @* <form class="container d-flex justify-content-center align-items-center vh-100" asp-action="LoginUser"> *@
+ *@
+          
                 @*              <div class="card p-4 shadow" style="width: 350px;">
                     <h3 class="text-center mb-4">Login</h3>
 
@@ -39,8 +39,8 @@
                             <label>New User? Register <a asp-action="LoginToRegister"> Here</a></label>
                         </div>
                 </div>
- *@
-   
+                *@
+@*    
                 <div class="input-group mb-3">
                     <input type="email" class="form-control" placeholder="Email" name="Email" asp-for="Email">
                         <div class="input-group-append">
@@ -58,32 +58,184 @@
                             </div>
                         </div>
                         <div class="row">
-                   @*          <div class="col-6">
-                                <div class="icheck-primary">
-                                    <input type="checkbox" id="remember">
-                                    <label for="remember">
-                                        Remember Me
-                                    </label>
-                                </div>
-                            </div> *@
+  
                             <!-- /.col -->
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary btn-block">Login</button>
                             </div>
                             <!-- /.col -->
                         </div>
-
-
                     </form>
-
-            @*         <p class="mb-1">
-                        <a href="#">I forgot my password</a>
-                    </p> *@
                     <p class="mt-3">
                         <label>New User? Register <a asp-action="LoginToRegister"> Here</a></label>
                     </p>
                 </div>
                 <!-- /.login-card-body -->
             </div>
-        </div>
+</div>
+         *@
+ 
        
+       @*  <div class="login-box">
+            <div class="login-logo">
+                <a href=""><b>My</b>Portfolio</a>
+            </div>
+
+            <div class="card">
+                <div class="card-body login-card-body">
+                    <p class="login-box-msg"><b>Login to start your new experience</b></p>
+                    <form asp-action="LoginUser">
+
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" placeholder="Email" name="Email" asp-for="Email" >
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-envelope"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <input type="password" class="form-control" placeholder="Password" name="Password" asp-for="Password" id="passwordInput">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text" onclick="togglePassword()" style="cursor:pointer;">
+                                            <span class="fas fa-eye" id="eyeIcon"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- /.col -->
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary btn-block">Login</button>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+
+                            </form>
+
+                            <p class="mt-3">
+                                <label>New User? Register <a asp-action="LoginToRegister"> Here</a></label>
+                            </p>
+                        </div>
+                        <!-- /.login-card-body -->
+                    </div>
+                </div>
+
+                <script>
+                    function togglePassword() {
+                        var input = document.getElementById('passwordInput');
+                        var icon  = document.getElementById('eyeIcon');
+
+                        if (input.type === 'password') {
+                            input.type = 'text';
+                            icon.classList.remove('fa-eye');
+                            icon.classList.add('fa-eye-slash');
+                        } else {
+                            input.type = 'password';
+                            icon.classList.remove('fa-eye-slash');
+                            icon.classList.add('fa-eye');
+                        }
+                    }
+                </script> *@
+
+<div class="login-box">
+    <div class="login-logo">
+        <a href=""><b>My</b>Portfolio</a>
+    </div>
+
+    <div class="card border-0 shadow-lg" style="border-radius:20px;">
+        <div class="card-body login-card-body px-4 py-4" style="border-radius:20px; background:rgba(255,255,255,0.97);">
+
+            <p class="login-box-msg font-weight-bold text-muted">
+                Login to start your new experience
+            </p>
+
+            <form asp-action="LoginUser">
+
+       @*          {{-- Email --}} *@
+                <div class="input-group mb-3">
+                    <input type="email"
+                           class="form-control"
+                           placeholder="Email"
+                           name="Email"
+                           asp-for="Email"
+                           style="border-radius: 12px 0 0 12px !important;
+                        border: 1.5px solid #dee2e6;
+                        padding: 11px 16px;
+                        font-size: 14px;">
+                        <div class="input-group-append">
+                            <div class="input-group-text"
+                                 style="border-radius: 0 12px 12px 0 !important;
+                                border: 1.5px solid #dee2e6;
+                                border-left: 0;
+                                background: #f8f9fa;">
+                                <span class="fas fa-envelope text-muted"></span>
+                            </div>
+                        </div>
+                    </div>
+
+          @*           {{-- Password --}} *@
+                    <div class="input-group mb-3">
+                        <input type="password"
+                               class="form-control"
+                               placeholder="Password"
+                               name="Password"
+                               asp-for="Password"
+                               id="passwordInput"
+                               style="border-radius: 12px 0 0 12px !important;
+                            border: 1.5px solid #dee2e6;
+                            padding: 11px 16px;
+                            font-size: 14px;">
+                            <div class="input-group-append">
+                                <div class="input-group-text"
+                                     onclick="togglePassword()"
+                                     style="border-radius: 0 12px 12px 0 !important;
+                                    border: 1.5px solid #dee2e6;
+                                    border-left: 0;
+                                    background: #f8f9fa;
+                                    cursor: pointer;">
+                                    <span class="fas fa-eye text-muted" id="eyeIcon"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-1">
+                            <div class="col-12">
+                                <button type="submit"
+                                        class="btn btn-primary btn-block font-weight-bold"
+                                        style="border-radius: 12px;
+                                    padding: 11px;
+                                    font-size: 14px;
+                                    letter-spacing: 0.4px;">
+                                    Login
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                    <p class="mt-3 mb-0 text-center text-muted" style="font-size:16px;">
+                        New User? Register
+                        <a asp-action="LoginToRegister" class="font-weight-bold"> Here</a>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function togglePassword() {
+                var input = document.getElementById('passwordInput');
+                var icon  = document.getElementById('eyeIcon');
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            }
+        </script>
