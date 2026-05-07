@@ -82,69 +82,126 @@ namespace My_Port.Controllers
             });
 
             await _context.SaveChangesAsync();
-            TempData["Success"] = "Registration successful! Please log in.";
+            TempData["Success"] = "Registration successful!";
             return RedirectToAction("Login");
 
         }
 
         public async Task<IActionResult> LoginUser(UserDto dto)
         {
-
-            var data = await (
-                 from u in _context.Users
-                 join ur in _context.UserRoles on u.UserId equals ur.UserId
-                 join r in _context.Roles on ur.RoleId equals r.RoleId
-                 where u.Email.Contains(dto.Email)
-
-                 select new UserDto
-                 {
-                     UserId = u.UserId,
-                     UserName = u.UserName,
-                     Email = u.Email,
-                     Password = u.Password,
-                     UserRole = r.RoleName
-                 }
-             ).ToListAsync();
-
-            UserRole = data[0].UserRole;
-
-            if (dto == null)
+            try
             {
-                TempData["Info"] = "Please provide email and password.";
+                if (dto.Email == null || dto.Password == null)
+                {
+                    TempData["Info"] = "Email and password are required.";
+                    return View("Login");
+                }
+
+                var data = await (
+                    from u in _context.Users
+                    join ur in _context.UserRoles on u.UserId equals ur.UserId
+                    join r in _context.Roles on ur.RoleId equals r.RoleId
+                    where u.Email.Contains(dto.Email)
+                    select new UserDto
+                    {
+                        UserName = u.UserName,
+                        Email = u.Email,
+                        Password = u.Password,
+                        UserRole = r.RoleName
+                    }
+                ).ToListAsync();
+
+                UserRole = data.Count > 0 ? data[0].UserRole : null;
+
+                var isExist = await _context.Users.FirstOrDefaultAsync(x => x.Email == dto.Email);
+
+                if (isExist == null)
+                {
+                    TempData["Info"] = "Email does not exist.";
+                    return View("Login");
+                }
+
+                if (isExist.Password != dto.Password)
+                {
+                    TempData["Info"] = "Incorrect password.";
+                    return View("Login");
+                }
+
+                var token = GenerateJwtToken(dto);
+
+                Response.Cookies.Append("jwt_Token", token, new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.Strict,
+                    Expires = DateTime.UtcNow.AddHours(1)
+                });
+
+                TempData["Success"] = "Login successful!";
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message.ToString();
+                // Log: ex.Message
                 return View("Login");
             }
-            if (dto.Email == null || dto.Password == null)
-            {
-                TempData["Info"] = "Email and password are required.";
-                return View("Login");
-            }
 
-            var isExist = await _context.Users.FirstOrDefaultAsync(x => x.Email == dto.Email);
+            //var data = await (
+            //     from u in _context.Users
+            //     join ur in _context.UserRoles on u.UserId equals ur.UserId
+            //     join r in _context.Roles on ur.RoleId equals r.RoleId
+            //     where u.Email.Contains(dto.Email)
 
-            if (isExist == null)
-            {
-                TempData["Info"] = "Email does not exist.";
-                return View("Login");
-            }
+            //     select new UserDto
+            //     {
+            //         UserId = u.UserId,
+            //         UserName = u.UserName,
+            //         Email = u.Email,
+            //         Password = u.Password,
+            //         UserRole = r.RoleName
+            //     }
+            // ).ToListAsync();
 
-            if (isExist.Password != dto.Password)
-            {
-                TempData["Info"] = "Incorrect password.";
-                return View("Login");
-            }
+            //UserRole = data[0].UserRole;
 
-            var token = GenerateJwtToken(dto);
+            //if (dto == null)
+            //{
+            //    TempData["Info"] = "Please provide email and password.";
+            //    return View("Login");
+            //}
+            //if (dto.Email == null || dto.Password == null)
+            //{
+            //    TempData["Info"] = "Email and password are required.";
+            //    return View("Login");
+            //}
 
-            Response.Cookies.Append("jwt_Token", token, new CookieOptions
-            {
-                HttpOnly = true,
-                Secure = true,
-                SameSite = SameSiteMode.Strict,
-                Expires = DateTime.UtcNow.AddHours(1)
-            });
-            
-            TempData["Success"] = "Login successful!";
-            return RedirectToAction("Index", "Home");
+            //var isExist = await _context.Users.FirstOrDefaultAsync(x => x.Email == dto.Email);
+
+            //if (isExist == null)
+            //{
+            //    TempData["Info"] = "Email does not exist.";
+            //    return View("Login");
+            //}
+
+            //if (isExist.Password != dto.Password)
+            //{
+            //    TempData["Info"] = "Incorrect password.";
+            //    return View("Login");
+            //}
+
+            //var token = GenerateJwtToken(dto);
+
+            //Response.Cookies.Append("jwt_Token", token, new CookieOptions
+            //{
+            //    HttpOnly = true,
+            //    Secure = true,
+            //    SameSite = SameSiteMode.Strict,
+            //    Expires = DateTime.UtcNow.AddHours(1)
+            //});
+
+            //TempData["Success"] = "Login successful!";
+            //return RedirectToAction("Index", "Home");
 
         }
 
