@@ -1,0 +1,157 @@
+﻿@{
+    ViewData["Title"] = "Access Denied";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>403 – Access Denied</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            background: #f5f5f4;
+            color: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .page { display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 440px; width: 100%; }
+
+        /* Hex shield */
+        .icon-wrap { position: relative; margin-bottom: 1.75rem; }
+        .pulse-ring {
+            position: absolute; inset: -10px; border-radius: 50%;
+            border: 2px dashed #fca5a5;
+            animation: spin 12s linear infinite;
+        }
+        @@keyframes spin { to { transform: rotate(360deg); } }
+        .hex-bg {
+            width: 90px; height: 90px;
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .err-code {
+            font-size: 11px; font-weight: 600; letter-spacing: .12em;
+            text-transform: uppercase; color: #dc2626;
+            background: #fef2f2; border: 1px solid #fca5a5;
+            border-radius: 4px; padding: 3px 10px;
+            margin-bottom: 1rem; display: inline-block;
+        }
+
+        h1 { font-size: 24px; font-weight: 700; margin-bottom: .4rem; }
+        .sub { font-size: 14px; color: #6b7280; line-height: 1.7; margin-bottom: 2rem; }
+
+        /* Info card */
+        .card {
+            background: #fafaf9; border: 1px solid #e5e7eb;
+            border-radius: 14px; padding: 1rem 1.25rem;
+            width: 100%; margin-bottom: 2rem; text-align: left;
+        }
+        .row {
+            display: flex; align-items: flex-start; gap: 12px;
+            padding: 8px 0; font-size: 13px; color: #6b7280; line-height: 1.5;
+        }
+        .row:not(:last-child) { border-bottom: 1px solid #f3f4f6; }
+
+        .ico {
+            width: 28px; height: 28px; border-radius: 6px;
+            flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+        }
+        .ico svg { width: 15px; height: 15px; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        .ico-r { background: #fef2f2; } .ico-r svg { stroke: #dc2626; }
+        .ico-y { background: #fffbeb; } .ico-y svg { stroke: #d97706; }
+        .ico-b { background: #eff6ff; } .ico-b svg { stroke: #2563eb; }
+
+        /* Buttons */
+        .btn-row { display: flex; gap: 10px; flex-wrap: wrap; width: 100%; }
+        .btn {
+            flex: 1; min-width: 120px;
+            display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+            padding: 10px 18px; font-size: 13px; font-weight: 500;
+            border-radius: 8px; text-decoration: none; border: 1px solid;
+        }
+        .btn svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        .btn-sec { background: #fff; border-color: #d1d5db; color: #374151; }
+        .btn-sec:hover { background: #f9fafb; }
+        .btn-red { background: #fef2f2; border-color: #fca5a5; color: #b91c1c; }
+        .btn-red:hover { background: #fee2e2; }
+    </style>
+</head>
+<body>
+    <div class="page">
+
+        <div class="icon-wrap">
+            <div class="pulse-ring"></div>
+            <div class="hex-bg">
+                <svg width="38" height="38" viewBox="0 0 24 24" fill="none"
+                     stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    <line x1="12" y1="8" x2="12" y2="12"/>
+                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+            </div>
+        </div>
+
+        <span class="err-code">403 &mdash; Forbidden</span>
+        <h1>Access Denied</h1>
+        <p class="sub">You don't have the required permissions to view this page.<br />This area is restricted to specific roles only.</p>
+
+        <div class="card">
+            <div class="row">
+                <div class="ico ico-r">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="15" y1="9" x2="9" y2="15"/>
+                        <line x1="9" y1="9" x2="15" y2="15"/>
+                    </svg>
+                </div>
+                <span>Your current role does not have access to this resource.</span>
+            </div>
+            <div class="row">
+                <div class="ico ico-y">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                        <line x1="12" y1="9" x2="12" y2="13"/>
+                        <line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                </div>
+                <span>Contact your administrator if you believe this is a mistake.</span>
+            </div>
+            <div class="row">
+                <div class="ico ico-b">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                    </svg>
+                </div>
+                <span>All unauthorized access attempts are logged and monitored.</span>
+            </div>
+        </div>
+
+        <div class="btn-row">
+            <a href="javascript:history.back()" class="btn btn-sec">
+                <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+                Go Back
+            </a>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-red">
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+                Home
+            </a>
+        </div>
+
+    </div>
+</body>
+   
+</html>

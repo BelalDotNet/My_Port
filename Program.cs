@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using My_Port.Data;
@@ -9,47 +10,53 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DBCon")));
 // Add services to the container.
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+//builder.Services.AddAuthentication(options =>
+//{
+//    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+//    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 
-}).AddJwtBearer(options =>
-{
-    options.RequireHttpsMetadata = false;
-    options.SaveToken = true;
+//}).AddJwtBearer(options =>
+//{
+//    options.RequireHttpsMetadata = false;
+//    options.SaveToken = true;
 
-    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-    {
-        ValidateIssuer = false,
-        ValidateAudience = false,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
-    };
+//    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+//    {
+//        ValidateIssuer = false,
+//        ValidateAudience = false,
+//        ValidateLifetime = true,
+//        ValidateIssuerSigningKey = true,
+//        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
+//    };
 
-    options.Events = new JwtBearerEvents
-    {
-        OnMessageReceived = context =>
-        {
-            var token = context.Request.Cookies["jwt_Token"];
+//    options.Events = new JwtBearerEvents
+//    {
+//        OnMessageReceived = context =>
+//        {
+//            var token = context.Request.Cookies["jwt_Token"];
 
-            if (!string.IsNullOrEmpty(token))
-            {
-                context.Token = token;
-            }
+//            if (!string.IsNullOrEmpty(token))
+//            {
+//                context.Token = token;
+//            }
 
-            return Task.CompletedTask;
-        },
+//            return Task.CompletedTask;
+//        },
 
-        OnChallenge = context =>
-        {
-            context.HandleResponse();
-            context.Response.Redirect("/");
-            return Task.CompletedTask;
-        }
-    };
-});
+//        OnChallenge = context =>
+//        {
+//            context.HandleResponse();
+//            context.Response.Redirect("/");
+//            return Task.CompletedTask;
+//        }
+//    };
+//});
+
+builder.Services.AddAuthentication("CookieAuth")
+    .AddCookie("CookieAuth", o => {
+        o.LoginPath = "/Auth/Login";
+        o.AccessDeniedPath = "/Auth/Denied";
+    });
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -68,12 +75,11 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapStaticAssets();
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Auth}/{action=Login}/{id?}")
     .WithStaticAssets();
 
-
+app.MapStaticAssets();
 app.Run();
+
