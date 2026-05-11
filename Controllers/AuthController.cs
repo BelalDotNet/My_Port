@@ -135,7 +135,7 @@ namespace My_Port.Controllers
                 ////Only For Cookie Authentication With OUT JWT
                 var claims = new List<Claim>
                 {
-                    new(ClaimTypes.Email, dto.Email),
+                    new(ClaimTypes.Name, dto.Email),
                     new(ClaimTypes.Role, UserRole)
                 };
 

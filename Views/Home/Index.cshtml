@@ -4,5 +4,11 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
+
+
+    <p>Name: @User.Identity?.AuthenticationType</p>
+    <p>Authenticated: @User.Identity?.IsAuthenticated</p>
+    <p>Is Admin: @User.IsInRole("Admin")</p>
+    <p>Is User: @User.IsInRole("User")</p>
     
 </div>

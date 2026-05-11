@@ -8,7 +8,7 @@ using My_Port.Models;
 namespace My_Port.Controllers
 {
 
-    [Authorize(Roles = "Admin,User")]
+    [Authorize(Roles = "Admin")]
     public class DashboardController(ApplicationDBContext _context) : Controller
     {
        
@@ -36,7 +36,7 @@ namespace My_Port.Controllers
             return RedirectToAction("AddEmployee");
         }
 
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
         public async Task<IActionResult> AddEmployeeDetail(EmployeeDto dto)
         {
             if (dto == null)
