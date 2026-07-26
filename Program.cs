@@ -52,11 +52,11 @@ builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseSqlSer
 //    };
 //});
 
-builder.Services.AddAuthentication("CookieAuth")
-    .AddCookie("CookieAuth", o => {
-        o.LoginPath = "/Auth/Login";
-        o.AccessDeniedPath = "/Auth/Denied";
-    });
+//builder.Services.AddAuthentication("CookieAuth")
+//    .AddCookie("CookieAuth", o => {
+//        o.LoginPath = "/Auth/Login";
+//        o.AccessDeniedPath = "/Auth/Denied";
+//    });
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

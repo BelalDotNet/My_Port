@@ -133,15 +133,15 @@ namespace My_Port.Controllers
                 }
 
                 ////Only For Cookie Authentication With OUT JWT
-                var claims = new List<Claim>
-                {
-                    new(ClaimTypes.Name, dto.Email),
-                    new(ClaimTypes.Role, UserRole)
-                };
+                //var claims = new List<Claim>
+                //{
+                //    new(ClaimTypes.Name, dto.Email),
+                //    new(ClaimTypes.Role, UserRole)
+                //};
 
-                var identity = new ClaimsIdentity(claims, "CookieAuth");
-                var principal = new ClaimsPrincipal(identity);
-                await HttpContext.SignInAsync("CookieAuth", principal);
+                //var identity = new ClaimsIdentity(claims, "CookieAuth");
+                //var principal = new ClaimsPrincipal(identity);
+                //await HttpContext.SignInAsync("CookieAuth", principal);
                        
                 //// End For Cookie Authentication 
 

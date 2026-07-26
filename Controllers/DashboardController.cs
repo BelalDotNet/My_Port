@@ -8,7 +8,7 @@ using My_Port.Models;
 namespace My_Port.Controllers
 {
 
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class DashboardController(ApplicationDBContext _context) : Controller
     {
        
