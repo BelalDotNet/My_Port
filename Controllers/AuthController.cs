@@ -286,7 +286,7 @@ namespace My_Port.Controllers
         public async Task<IActionResult> Logout()
         {
             //Response.Cookies.Delete("jwt_Token");
-            await HttpContext.SignOutAsync("CookieAuth");
+            //await HttpContext.SignOutAsync("CookieAuth");
             return RedirectToAction("Login");
         }
 
