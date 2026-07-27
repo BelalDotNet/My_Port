@@ -346,12 +346,34 @@
                                                             <i class="fas fa-expand-arrows-alt"></i>
                                                         </a>
                                                     </li> *@
-                                                    <li class="nav-item">
-                                                        <a href="#" role="button" class="nav-link">
-                                                            <img src="~/lib/adminlte/dist/img/Belal_Photo_01.png" height="25" width="25" class="img-circle elevation-2" alt="User Image"> Belal
+             
+                <li class="nav-item dropdown">
+                    <a href="#" role="button" class="nav-link" data-toggle="dropdown">
+                    <img src="~/lib/adminlte/dist/img/Belal_Photo_01.png" height="25" width="25" class="img-circle elevation-2" alt="User Image"> Belal
                                                                 
-                                                            </a>
-                                                        </li>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                         <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-user mr-2"></i> Profile
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i class="fa fa-lock"></i> Change Password
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-cog mr-2"></i> Settings
+                        </a>
+               
+                        <div class="dropdown-divider"></div>
+            
+                         <a class="nav-link" asp-area="" asp-controller="Auth" asp-action="Logout">
+                                <i class="fas fa-unlock mr-2"></i>
+                            Logout
+                        </a>
+                    </div>
+                   </li>
                                                         <li class="nav-item">
                                                             <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
                                                                 <i class="fas fa-th-large"></i>
@@ -1029,12 +1051,12 @@
                                                                             <p>Roles</p>
                                                                         </a>
                                                                     </li>
-                                                                    <li class="nav-item">
+                                                              @*       <li class="nav-item">
                                                                         <a class="nav-link" asp-area="" asp-controller="Auth" asp-action="Logout">
                                                                             <i class="nav-icon far fa-circle text-info"></i>
                                                                             <p>Logout</p>
                                                                         </a>
-                                                                    </li>
+                                                                    </li> *@
                                  
                                                                 </ul>
                                                             </nav>
